@@ -43,9 +43,10 @@ namespace stripe_api_sandbox.Controllers
         }
 
         [HttpPut("{id}")]
-        async public Task<Customer> UpdateCustomerAsync(string id, [FromBody] CustomerUpdateOptions customerUpdateOptions)
+        async public Task<string> UpdateCustomerAsync(string id, [FromBody] CustomerUpdateOptions customerUpdateOptions)
         {
-            return await _customerService.UpdateAsync(id, customerUpdateOptions, _requestOptions);
+            var res = await _customerService.UpdateAsync(id, customerUpdateOptions, _requestOptions);
+            return res.Id;
         }
 
         [HttpDelete("{id}")]

@@ -47,13 +47,12 @@ namespace stripe_api_sandbox.Controllers
             return await _subscriptionService.UpdateAsync(id, subscriptionUpdateOptions, _requestOptions);
         }
 
-        [HttpDelete("{id}/{invoiceNow}/{proration}")]
-        async public Task<Subscription> DeleteSubscriptionAsync(string id, bool invoiceNow, bool proration)
+        [HttpDelete("{id}/{invoiceNow}")]
+        async public Task<Subscription> DeleteSubscriptionAsync(string id, bool invoiceNow)
         {
             var subscriptionCancelOptions = new SubscriptionCancelOptions
             {
                 InvoiceNow = invoiceNow,
-                Prorate = proration
             };
             return await _subscriptionService.CancelAsync(id, subscriptionCancelOptions, _requestOptions);
         }

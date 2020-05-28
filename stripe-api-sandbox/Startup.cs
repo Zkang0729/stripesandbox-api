@@ -43,7 +43,7 @@ namespace stripe_api_sandbox
             services.AddSingleton<SubscriptionService>();
             services.AddSingleton<CustomerService>();
             services.AddSingleton<PaymentMethodService>();
-            services.AddSingleton<CardService>();
+            services.AddSingleton<InvoiceService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
