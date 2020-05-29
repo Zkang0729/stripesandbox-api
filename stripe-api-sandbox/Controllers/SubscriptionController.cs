@@ -42,19 +42,22 @@ namespace stripe_api_sandbox.Controllers
         }
 
         [HttpPut("{id}")]
-        async public Task<Subscription> UpdateSubscriptionAsync(string id, [FromBody] SubscriptionUpdateOptions subscriptionUpdateOptions)
+        async public Task<string> UpdateSubscriptionAsync(string id, [FromBody] SubscriptionUpdateOptions subscriptionUpdateOptions)
         {
-            return await _subscriptionService.UpdateAsync(id, subscriptionUpdateOptions, _requestOptions);
+            var res = await _subscriptionService.UpdateAsync(id, subscriptionUpdateOptions, _requestOptions);
+            return res.Id;
         }
 
-        [HttpDelete("{id}/{invoiceNow}")]
-        async public Task<Subscription> DeleteSubscriptionAsync(string id, bool invoiceNow)
+        [HttpDelete("{id}/{invoiceNow}/{prorate}")]
+        async public Task<string> DeleteSubscriptionAsync(string id, bool invoiceNow, bool prorate)
         {
             var subscriptionCancelOptions = new SubscriptionCancelOptions
             {
                 InvoiceNow = invoiceNow,
+                Prorate = prorate
             };
-            return await _subscriptionService.CancelAsync(id, subscriptionCancelOptions, _requestOptions);
+            var res = await _subscriptionService.CancelAsync(id, subscriptionCancelOptions, _requestOptions);
+            return res.Id;
         }
     }
 }

@@ -22,9 +22,17 @@ namespace stripe_api_sandbox.Controllers
             };
         }
 
-        async public Task<Invoice> AddInvoiceAsync([FromBody] InvoiceCreateOptions invoiceCreateOptions = null)
+        [HttpPost]
+        async public Task<string> AddInvoiceAsync([FromBody] InvoiceCreateOptions invoiceCreateOptions = null)
         {
-            return await _invoiceService.CreateAsync(invoiceCreateOptions, _requestOptions);
+            var res = await _invoiceService.CreateAsync(invoiceCreateOptions, _requestOptions);
+            return res.Id;
+        }
+
+        [HttpPost("{id}/pay")]
+        async public Task<Invoice> ChargeInvoiceAsync(string id)
+        {
+            return await _invoiceService.PayAsync(id, null, _requestOptions);
         }
     }
 }

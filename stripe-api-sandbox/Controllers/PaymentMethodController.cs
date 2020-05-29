@@ -37,22 +37,13 @@ namespace stripe_api_sandbox.Controllers
         [HttpPost]
         async public Task<string> AddPaymentMethodAsync([FromBody] PaymentMethodCreateOptions paymentMethodCreateOptions)
         {
-           /* var paymentMethodCreateOptions = new PaymentMethodCreateOptions
-            {
-                Type = "card",
-                Card = new PaymentMethodCardCreateOptions { Token = "tok_1GiLeXGtzo9sPWie6SGoj08P" },
-            };*/
             var res = await _paymentMethodService.CreateAsync(paymentMethodCreateOptions, _requestOptions);
             return res.Id;
         }
 
-        [HttpPost("{id}")]
+        [HttpPost("{id}/attach")]
         async public Task<string> AttachPaymentMethodAsync(string id, [FromBody] PaymentMethodAttachOptions paymentMethodAttachOptions)
         {
-            /*var paymentMethodAttachOptions = new PaymentMethodAttachOptions 
-            { 
-                Customer = "cus_HGEw5PjT0aCZmW"
-            };*/
             var res = await _paymentMethodService.AttachAsync(id, paymentMethodAttachOptions, _requestOptions);
             return res.Id;
         }
